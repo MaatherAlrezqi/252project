@@ -122,12 +122,12 @@ public class InclusiveSchoolFinder {
         int index = 1;
 
         for (School school : globalData.getSchoolsMap().values()) {
-             String schoolName = school.getName();
-             List<String> disabilitiesList = globalData.getSchoolsDisabilitiesMap().get(schoolName);
-             if (disabilitiesList != null && disabilitiesList.contains(disabilityName)) {
-                 eligibleSchools.add(school);
-                 System.out.println(index + ". " + schoolName);
-                 index++;
+              String schoolName = school.getName();
+              List<String> disabilitiesList = globalData.getSchoolsDisabilitiesMap().get(schoolName);
+              if (disabilitiesList != null && disabilitiesList.contains(disabilityName)) {
+                  eligibleSchools.add(school);
+                  System.out.println(index + ". " + schoolName);
+                  index++;
     }
 }
 
