@@ -11,14 +11,13 @@ public class InclusiveSchoolFinder {
 
         // Initialize data from files
         try {
-            FileManagment.readSchoolsFromFile(globalData.getSchoolsMap());
-            FileManagment.readDisabilitiesFromFile(globalData.getDisabilitiesMap());
-            FileManagment.readRequestsFromFile(globalData.getRequests());
-        } catch (IOException e) {
-            System.err.println("Error reading initial data from files: " + e.getMessage());
-           
-        }
-
+             FileManagement.readSchoolsFromFile(globalData.getSchoolsMap());
+             FileManagement.readDisabilitiesFromFile(globalData.getDisabilitiesMap());
+             FileManagement.readSchoolsDisabilitiesFromFile(globalData.getSchoolsDisabilitiesMap());
+             FileManagement.readRequestsFromFile(globalData.getRequests());
+     } catch (IOException e) {
+               System.err.println("Error reading initial data from files: " + e.getMessage());
+     }
         Scanner scanner = new Scanner(System.in);
         int choice;
 
@@ -37,13 +36,13 @@ public class InclusiveSchoolFinder {
                     registerChild(scanner, globalData);
                     break;
                 case 2:
-                    FileManagment.deleteRequests(scanner);
+                    FileManagement.deleteRequests(scanner);
                     break;
                 case 3:
-                    FileManagment.updateChildData(scanner);
+                    FileManagement.updateChildData(scanner);
                     break;
                 case 4:
-                    FileManagment.showRequestStatus(scanner);
+                    FileManagement.showRequestStatus(scanner);
                     break;
                 case 0:
                     System.out.println("Exiting the system. Goodbye!");
@@ -82,7 +81,7 @@ public class InclusiveSchoolFinder {
 
                 globalData.getRequests().add(request);
 
-                FileManagment.saveRequestsToFile(globalData.getRequests());  // Ensure this method exists
+                FileManagement.saveRequestsToFile(globalData.getRequests());  // Ensure this method exists
 
                 System.out.println("Child registered successfully! Request ID: " + request.getRequestId());
             }

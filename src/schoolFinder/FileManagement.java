@@ -3,16 +3,15 @@ package schoolFinder;
 import java.io.*;
 import java.util.*;
 
-public class FileManagment {
-
-    public static final String SCHOOLS_FILE = "schools.txt";  // Correct initialization
+public class FileManagement {
+    public static final String SCHOOLS_FILE = "schools.txt";
     public static final String DISABILITIES_FILE = "disabilities.txt";
+    public static final String SCHOOL_DISABILITIES_FILE = "school_disabilities.txt";
     public static final String REQUESTS_FILE = "requests.txt";
     public static final String CHILD_DATA_FILE = "childData.txt";
 
-    // Read schools from a file and populate a map
     public static void readSchoolsFromFile(Map<String, School> schoolsMap) throws IOException {
-        try ( BufferedReader reader = new BufferedReader(new FileReader(SCHOOLS_FILE))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(SCHOOLS_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -24,14 +23,11 @@ public class FileManagment {
                 schoolsMap.put(name, school);
             }
         } catch (IOException e) {
-            System.err.println("Error reading schools from file.");
-
+            System.err.println("Error reading schools from file: " + e.getMessage());
         }
     }
-
-    // Read disabilities from a file and populate a map
     public static void readDisabilitiesFromFile(Map<String, Disability> disabilitiesMap) throws IOException {
-        try ( BufferedReader reader = new BufferedReader(new FileReader(DISABILITIES_FILE))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(DISABILITIES_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String disabilityName = line.trim();
@@ -39,8 +35,20 @@ public class FileManagment {
                 disabilitiesMap.put(disabilityName, disability);
             }
         } catch (IOException e) {
-            System.err.println("Error reading disabilities from file.");
-
+            System.err.println("Error reading disabilities from file: " + e.getMessage());
+        }
+    }
+    public static void readSchoolsDisabilitiesFromFile(Map<String, List<String>> schoolsDisabilitiesMap) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(SCHOOL_DISABILITIES_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                String schoolName = parts[0].trim();
+                List<String> disabilities = Arrays.asList(parts[1].trim().split(" - "));
+                schoolsDisabilitiesMap.put(schoolName, disabilities);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading school-disabilities mapping from file: " + e.getMessage());
         }
     }
 
@@ -231,3 +239,4 @@ public class FileManagment {
         }
     }
 }
+
